@@ -171,6 +171,20 @@
             {% else %}
                 <p class="no-data">No data</p>
             {% endif %}
+            <h2>Most impact by view</h2>
+            {% if largest_impact_by_view %}
+                <table>
+                {% for x in largest_impact_by_view %}
+                    <tr>
+                    <td>{{ x.time_taken__sum }}</td>
+                    <td>{{ x.id__count }}</td>
+                    <td>{{ x.path }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            {% else %}
+                <p class="no-data">No data</p>
+            {% endif %} 
             <h2>Most Time Overall</h2>
             {% if longest_queries_by_view %}
                 {% for x in longest_queries_by_view %}

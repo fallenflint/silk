@@ -34,6 +34,10 @@ def heading(text):
 def code(lines, actual_line):
     return {'code': lines, 'actual_line': [x.strip() for x in actual_line]}
 
+
+def view_impact(view):
+    return {'view': view}
+
 register.inclusion_tag('silk/inclusion/request_summary.html')(request_summary)
 register.inclusion_tag('silk/inclusion/profile_summary.html')(profile_summary)
 register.inclusion_tag('silk/inclusion/code.html')(code)
@@ -41,3 +45,4 @@ register.inclusion_tag('silk/inclusion/request_menu.html')(request_menu)
 register.inclusion_tag('silk/inclusion/profile_menu.html')(profile_menu)
 register.inclusion_tag('silk/inclusion/root_menu.html')(root_menu)
 register.inclusion_tag('silk/inclusion/heading.html')(heading)
+register.inclusion_tag('silk/inclusion/view_impact.html')(view_impact)

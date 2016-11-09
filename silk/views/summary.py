@@ -58,6 +58,11 @@ class SummaryView(View):
                 pass
         return requests
 
+    def _larges_impact_by_view(self, filters):
+        GROUPING_BASIS = 'path'
+        requests = models.Request.objects.values(GROUPING_BASIS).annotate(Sum('time_taken'), Avg('time_taken'), Count('id')).order_by('-time_taken__sum')
+        return requests
+
     def _create_context(self, request):
         raw_filters = request.session.get(self.filters_key, {})
         filters = [BaseFilter.from_dict(filter_d) for _, filter_d in raw_filters.items()]
@@ -72,6 +77,7 @@ class SummaryView(View):
             'longest_queries_by_view': self._longest_query_by_view(filters),
             'most_time_spent_in_db': self._time_spent_in_db_by_view(filters),
             'most_queries': self._num_queries_by_view(filters),
+            'largest_impact_by_view': self._larges_impact_by_view(filters),
             'filters': raw_filters
         }
         c.update(csrf(request))
